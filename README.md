@@ -5,12 +5,15 @@ Multimodal, Video Action Recognition, Semantic Mapping, Federated Learning
 
 <h3>Team Possible</h3>
 이화여자대학교 캡스톤디자인과창업프로젝트
+<br>
 팀 가능한
+<br>
 김지은, 윤서아, 장은성
 
 <h3>Problem Definition</h3>
 
 <h3>Project Structure</h3>
+```bash
 AudioFeatureGeneration/
 ├── Audio-Feature-Generation/
 │   ├── data/                         # 데이터 관련 디렉토리
@@ -55,4 +58,4 @@ AudioFeatureGeneration/
 ├── lstm_labels.csv                   # 비디오 파일 라벨 정보
 ├── no_audio_videos.csv               # 오디오 없는 비디오 리스트
 └── .gitignore                        # 업로드 제외 항목 설정 파일
-
+'''
