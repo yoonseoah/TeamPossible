@@ -58,4 +58,3 @@ AudioFeatureGeneration/
 ├── lstm_labels.csv                   # 비디오 파일 라벨 정보
 ├── no_audio_videos.csv               # 오디오 없는 비디오 리스트
 └── .gitignore                        # 업로드 제외 항목 설정 파일
-'''
