@@ -8,11 +8,7 @@
 팀 가능한  
 김지은, 윤서아, 장은성  
 
----
-
 ### Problem Definition 
-
----
 
 ### Project Structure
 
