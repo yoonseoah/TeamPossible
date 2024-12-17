@@ -1,0 +1,37 @@
+# 가상 환경
+myenv/
+
+# 데이터 폴더 (외부 제공 링크로 대체)
+data/
+
+# 모델 파일 및 체크포인트
+models/
+
+# 캐시 및 임시 파일
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+.DS_Store
+Thumbs.db
+
+# 로그 파일 및 결과물
+logs/
+results/
+*.log
+*.csv
+
+# IDE 설정 및 기타 설정 파일
+.vscode/
+.idea/
+*.iml
+
+# 파이썬 패키지 관련
+*.egg-info/
+dist/
+build/
+
+# 환경 변수 설정
+.env
+.env.*  # 추가적인 환경 설정 파일
