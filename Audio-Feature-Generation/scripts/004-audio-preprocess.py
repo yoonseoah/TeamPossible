@@ -4,9 +4,9 @@ import glob
 import pandas as pd
 
 # 입력 비디오 경로 및 출력 오디오 경로 설정
-video_dir = os.path.normpath(r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/raw")
-audio_output_dir = os.path.normpath(r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/audio-processed")
-output_csv_path = os.path.normpath(r"C:/Users/swu/Desktop/AudioFeatureGeneration/no_audio_videos.csv")
+video_dir = os.path.normpath("Audio-Feature-Generation/data/raw")
+audio_output_dir = os.path.normpath(r"D:/aud-processed")
+output_csv_path = os.path.normpath("Audio-Feature-Generation/results/no_audio_videos.csv")
 ffmpeg_path = r"C:/Users/swu/Desktop/ffmpeg-2024-12-16-git-d2096679d5-essentials_build/ffmpeg-2024-12-16-git-d2096679d5-essentials_build/bin/ffmpeg.exe"
 
 # 오디오 스트림 확인 함수
@@ -30,14 +30,19 @@ def extract_audio_from_videos(video_root, audio_root, output_csv):
     for class_name in os.listdir(video_root):
         class_video_path = os.path.normpath(os.path.join(video_root, class_name))
         class_audio_path = os.path.normpath(os.path.join(audio_root, class_name))
-        os.makedirs(class_audio_path, exist_ok=True)
 
+        if not os.path.isdir(class_video_path):
+            print(f"Skipping non-directory: {class_video_path}")
+            continue
+
+        os.makedirs(class_audio_path, exist_ok=True)
         video_files = glob.glob(os.path.join(class_video_path, "*.mp4"))
+
         for video_path in video_files:
             video_file = os.path.basename(video_path)
             audio_output_path = os.path.normpath(os.path.join(class_audio_path, video_file.replace('.mp4', '.wav')))
 
-            print(f"Accessing video file: {video_path}")
+            print(f"Processing video file: {video_path}")
 
             if not os.path.exists(video_path):
                 print(f"File not found: {video_path}")
@@ -56,8 +61,10 @@ def extract_audio_from_videos(video_root, audio_root, output_csv):
                 print(f"Extracted audio: {audio_output_path}")
             except subprocess.CalledProcessError as e:
                 print(f"Error extracting audio from {video_path}: {e}")
+                no_audio_videos.append({"class": class_name, "file": video_file})
             except Exception as e:
                 print(f"Unexpected error with {video_path}: {e}")
+                no_audio_videos.append({"class": class_name, "file": video_file})
 
     # CSV 파일 저장
     if no_audio_videos:
