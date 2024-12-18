@@ -23,24 +23,26 @@ class TestDataset(Dataset):
         video_features = np.load(video_path)
         return torch.tensor(video_features, dtype=torch.float32), os.path.basename(video_path)
 
-
 # ==========================
 # Multi-Task Learning Model
 # ==========================
 class MultiTaskModel(nn.Module):
     def __init__(self, video_input_dim=256, audio_output_dim=(256, 1024), num_classes=10):
         super(MultiTaskModel, self).__init__()
-        
-        # Shared LSTM Layer
-        self.lstm = nn.LSTM(input_size=video_input_dim, hidden_size=512, num_layers=2, batch_first=True)
-        
+
+        # Shared Fully Connected Layer
+        self.fc_shared = nn.Sequential(
+            nn.Linear(video_input_dim, 512),
+            nn.ReLU()
+        )
+
         # Classification Branch
         self.classifier = nn.Sequential(
             nn.Linear(512, 256),
             nn.ReLU(),
             nn.Linear(256, num_classes)
         )
-        
+
         # Reconstruction Branch
         self.reconstructor = nn.Sequential(
             nn.Linear(512, 512),
@@ -50,16 +52,11 @@ class MultiTaskModel(nn.Module):
         )
 
     def forward(self, x):
-        # Shared LSTM
-        lstm_out, _ = self.lstm(x.unsqueeze(1))
-        lstm_out = lstm_out[:, -1, :]  # 마지막 타임스텝 출력
-        
-        # Classification Branch
-        cls_output = self.classifier(lstm_out)
-        
-        # Reconstruction Branch
-        rec_output = self.reconstructor(lstm_out)
-        
+        shared_output = self.fc_shared(x)
+
+        cls_output = self.classifier(shared_output)  # Classification
+        rec_output = self.reconstructor(shared_output)  # Reconstruction
+
         return cls_output, rec_output
 
 # ==========================
@@ -87,7 +84,7 @@ def test(model, test_loader, device, output_dir, results_file):
 
             # Reconstruction 결과 저장
             for i, rec_feat in enumerate(rec_output):
-                output_file = os.path.join(output_dir, f"reconstructed_{video_file[i]}")
+                output_file = os.path.join(output_dir, f"reconstructed_{video_file[i].replace('.npy', '.npy')}")
                 np.save(output_file, rec_feat.cpu().numpy())
                 reconstructed_audio_paths.append(output_file)
 
@@ -103,11 +100,11 @@ def test(model, test_loader, device, output_dir, results_file):
 # ==========================
 if __name__ == "__main__":
     # 경로 설정
-    video_features_dir = r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/lstm_features"
-    test_split_file = r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/splited-data/test_data.npy"
-    output_dir = r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/reconstructed-audio"
-    results_file = r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/classification_results.csv"
-    model_path = "final_model.pth"  # 학습된 모델 경로
+    video_features_dir = r"D:/vid_lstmfeatures"
+    test_split_file = r"D:/splited-data/test_data.npy"
+    output_dir = r"D:/aud-reconstructed"
+    results_file = r"Audio-Feature-Generation/results/classification_results.csv"
+    model_path = r"Audio-Feature-Generation/models/trained_model.pth"  # 학습된 모델 경로
 
     # 데이터셋 및 데이터로더
     test_dataset = TestDataset(split_data=test_split_file, video_features_dir=video_features_dir)
@@ -115,9 +112,9 @@ if __name__ == "__main__":
 
     # 장치 설정 및 모델 로드
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = MultiTaskModel(num_classes=10)
-    model.load_state_dict(torch.load(model_path))
-    
+    model = MultiTaskModel(video_input_dim=256, audio_output_dim=(256, 1024), num_classes=10)
+    model.load_state_dict(torch.load(model_path, map_location=device))
+
     print("Starting testing...")
     predictions, reconstructed_audio_paths = test(model, test_loader, device, output_dir, results_file)
     print("Testing completed!")
@@ -126,7 +123,7 @@ if __name__ == "__main__":
     print("\nReconstructed Audio Files:")
     for path in reconstructed_audio_paths:
         print(f"Saved: {path}")
-        
+
     print("Classification Results:")
     for video_file, pred in predictions:
         print(f"Video: {video_file}, Predicted Class: {pred}")

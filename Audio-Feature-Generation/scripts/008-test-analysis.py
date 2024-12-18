@@ -1,10 +1,12 @@
 import os
 import numpy as np
 import pandas as pd
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 from tqdm import tqdm
 from scipy.spatial.distance import cosine
 from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # ==========================
 # Classification Performance 분석
@@ -39,6 +41,20 @@ def evaluate_classification_results(results_csv, label_file):
     print(f"Recall: {recall:.4f}")
     print(f"F1-Score: {f1:.4f}")
 
+    # 클래스별 F1-Score
+    f1_per_class = f1_score(y_true, y_pred, average=None, zero_division=0)
+    for i, score in enumerate(f1_per_class):
+        print(f"Class {i} F1-Score: {score:.4f}")
+
+    # Confusion Matrix
+    conf_matrix = confusion_matrix(y_true, y_pred)
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=np.unique(y_true), yticklabels=np.unique(y_true))
+    plt.title("Confusion Matrix")
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.show()
+
 # ==========================
 # Reconstruction Performance 분석
 # ==========================
@@ -47,7 +63,7 @@ def evaluate_reconstruction(reconstructed_dir, ground_truth_dir):
     mse_scores = []
     cosine_similarities = []
 
-    # Ground Truth 경로 매핑 (순회 탐색)
+    # Ground Truth 경로 매핑
     ground_truth_files = {}
     for root, _, files in os.walk(ground_truth_dir):
         for file in files:
@@ -57,7 +73,6 @@ def evaluate_reconstruction(reconstructed_dir, ground_truth_dir):
     # 재구성된 오디오 피처 순회
     for rec_file in tqdm(os.listdir(reconstructed_dir), desc="Evaluating Reconstruction"):
         if rec_file.startswith('reconstructed_') and rec_file.endswith('.npy'):
-            # 파일명에서 'reconstructed_' 제거
             original_file = rec_file.replace('reconstructed_', '')
             
             if original_file in ground_truth_files:
@@ -79,6 +94,21 @@ def evaluate_reconstruction(reconstructed_dir, ground_truth_dir):
     if mse_scores and cosine_similarities:
         print(f"Average MSE: {np.mean(mse_scores):.4f}")
         print(f"Average Cosine Similarity: {np.mean(cosine_similarities):.4f}")
+
+        # MSE & Cosine Similarity 분포 시각화
+        plt.figure(figsize=(12, 5))
+        plt.subplot(1, 2, 1)
+        sns.boxplot(mse_scores)
+        plt.title("MSE Distribution")
+        plt.xlabel("MSE")
+
+        plt.subplot(1, 2, 2)
+        sns.histplot(cosine_similarities, bins=20, kde=True, color="blue")
+        plt.title("Cosine Similarity Distribution")
+        plt.xlabel("Cosine Similarity")
+
+        plt.tight_layout()
+        plt.show()
     else:
         print("Error: No matching reconstructed and ground truth audio features found.")
 
@@ -87,10 +117,10 @@ def evaluate_reconstruction(reconstructed_dir, ground_truth_dir):
 # ==========================
 if __name__ == "__main__":
     # 경로 설정
-    classification_results_csv = r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/classification_results.csv"
-    ground_truth_labels_csv = r"C:/Users/swu/Desktop/AudioFeatureGeneration/lstm_labels.csv"
-    reconstructed_audio_dir = r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/reconstructed-audio"
-    ground_truth_audio_dir = r"C:/Users/swu/Desktop/AudioFeatureGeneration/Audio-Feature-Generation/data/audio-features"
+    classification_results_csv = r"Audio-Feature-Generation/results/classification_results.csv"
+    ground_truth_labels_csv = r"Audio-Feature-Generation/results/lstm_labels.csv"
+    reconstructed_audio_dir = r"D:/aud-reconstructed"
+    ground_truth_audio_dir = r"D:/aud-features"
 
     # Classification 분석
     evaluate_classification_results(classification_results_csv, ground_truth_labels_csv)
