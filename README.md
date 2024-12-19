@@ -9,6 +9,20 @@
 김지은, 윤서아, 장은성  
 
 ### Problem Definition 
+audio modality의 누락은 연합학습 성능 저하를 유발하며, 이는 행동 인식의 정확도를 감소시키는 원인입니다. 또한, 비디오 처리는 communication overhead를 크게 증가시키며, 이는 시간과 비용 측면에서 매우 비효율적입니다. 더불어, 데이터의 privacy 보호가 이루어지지 않을 경우, 모델 학습에 사용할 수 있는 데이터의 양이 크게 줄어듭니다. 선행 연구들에서는 Semantic Mapping을 위해 주로 BERT를 사용하고 있습니다. 하지만 BERT는 텍스트 기반 모델로 설계되었기에, video(image)에서 추출된 정보와의 상호작용에는 한계가 존재합니다. 이러한 문제들은 모두 모델 성능의 저하, 행동 인식의 정확도 감소로 이어집니다. 
+
+### Solution
+OpenCV (https://github.com/opencv/opencv)
+
+NumPy (https://github.com/numpy/numpy)
+
+PyTorch(VAE) (https://github.com/pytorch/examples/tree/main/vae)
+
+Hugging Face (https://github.com/huggingface/transformers)
+
+GPT-4 Vision API (https://platform.openai.com/)
+
+PySyft (https://github.com/OpenMined/PySyft)
 
 ### Project Structure
 
