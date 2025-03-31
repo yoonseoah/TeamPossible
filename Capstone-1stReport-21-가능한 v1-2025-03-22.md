@@ -4,14 +4,14 @@
 <!-- "내용"에 해당하는 부분을 지우고, 여러분 과제의 내용을 작성해 주세요. -->
 
 # Team-Info
-| (1) 과제명 | *Generating Missing Auditory Modality via Semantic Mapping for Video Action Recognition*
+| (1) 과제명 | Generating Missing Auditory Modality via Semantic Mapping for Video Action Recognition
 |:---  |---  |
-| (2) 팀 번호 / 팀 이름 | *21-가능한* |
-| (3) 팀 구성원 | 김지은 (2140010): 리더, *기본 데이터 전처리, caption-based dictionary 활용 아키텍처 설계 및 구현, transformer 활용 오디오 특징 추출* <br> 윤서아 (2168019): 팀원, *TSN 기반 feature extraction, BERT 활용 semantic mapping dictionary 설계* <br> 장은성 (2271052) : 팀원, *transformer 기반 프레임워크 중 video 전처리, feature 추출 부분 설계 및 구현*            |
+| (2) 팀 번호 / 팀 이름 | 21-가능한 |
+| (3) 팀 구성원 | **김지은** (2140010): 리더, *기본 데이터 전처리, caption-based dictionary 활용 아키텍처 설계 및 구현, transformer 활용 오디오 특징 추출* <br> **윤서아** (2168019): 팀원, *TSN 기반 feature extraction, BERT 활용 semantic mapping dictionary 설계* <br> **장은성** (2271052) : 팀원, *transformer 기반 프레임워크 중 video 전처리, feature 추출 부분 설계 및 구현*            |
 | (4) 팀 지도교수 | 이형준 교수님 |
-| (5) 과제 분류 | *연구 과제* |
-| (6) 과제 키워드 | *Generative AI, Video Action Recognition, Multimodal, Semantic Mapping*  |
-| (7) 과제 내용 요약 | *본 연구는 비디오 시퀀스를 기반으로 오디오 피처를 재구성하여, 결손된 오디오 데이터를 보완하고 이를 통해 모델의 정확도를 향상시키는 것을 목표로 한다. 이를 위해 비디오와 오디오 간의 의미적 정렬을 수행하는 개념인 Semantic Mapping을 차용하였다. 두 가지 아키텍처를 제안하는데, 공통적으로 비디오로부터 오디오 피처를 생성하지만, 검증 및 활용 방식에서 차이를 보인다. 첫 번째 아키텍처는 CNN과 LSTM을 활용하여 오디오 피처를 생성한 후, Semantic Dictionary를 이용해 의미적 유효성을 검증한다. 이 검증을 통과한 피처만 학습에 활용하는 방식이다. 두 번째 아키텍처는 Transformer를 활용해 대표 프레임을 추출하고, 캡션으로 변환한 뒤 이를 키로 사용하는 Semantic Dictionary을 만든다. 이 사전을 참조하여 오디오 피쳐를 생성해낸다. 두 아키텍처를 비교 분석함으로써, 의미 기반 피처 정렬 방식이 오디오 생성 및 영상 이해 성능에 미치는 영향을 규명하고자 한다.* |
+| (5) 과제 분류 | 연구 과제 |
+| (6) 과제 키워드 | Generative AI, Video Action Recognition, Multimodal, Semantic Mapping  |
+| (7) 과제 내용 요약 | 본 연구는 비디오 시퀀스를 기반으로 오디오 피처를 재구성하여, 결손된 오디오 데이터를 보완하고 이를 통해 모델의 정확도를 향상시키는 것을 목표로 한다. 이를 위해 비디오와 오디오 간의 의미적 정렬을 수행하는 개념인 Semantic Mapping을 차용하였다. 두 가지 아키텍처를 제안하는데, 공통적으로 비디오로부터 오디오 피처를 생성하지만, 검증 및 활용 방식에서 차이를 보인다. 첫 번째 아키텍처는 CNN과 LSTM을 활용하여 오디오 피처를 생성한 후, Semantic Dictionary를 이용해 의미적 유효성을 검증한다. 이 검증을 통과한 피처만 학습에 활용하는 방식이다. 두 번째 아키텍처는 Transformer를 활용해 대표 프레임을 추출하고, 캡션으로 변환한 뒤 이를 키로 사용하는 Semantic Dictionary을 만든다. 이 사전을 참조하여 오디오 피쳐를 생성해낸다. 두 아키텍처를 비교 분석함으로써, 의미 기반 피처 정렬 방식이 오디오 생성 및 영상 이해 성능에 미치는 영향을 규명하고자 한다. |
 
 <br>
 
@@ -30,8 +30,8 @@
 # Project-Design & Implementation
 | 항목 | 내용 |
 |:---  |---  |
-| (1) 요구사항 정의 | *프로젝트를 완성하기 위해 필요한 요구사항을 설명하기에 가장 적합한 방법을 선택하여 기술* <br> 예) <br> - 기능별 상세 요구사항(또는 유스케이스) <br> - 설계 모델(클래스 다이어그램, 클래스 및 모듈 명세서) <br> - UI 분석/설계 모델 <br> - E-R 다이어그램/DB 설계 모델(테이블 구조) |
-| (2) 전체 시스템 구성 | *프로젝트를 위하여, SW 전체 시스템의 구조를 보인다. (가능하다면, 사용자도 포함) <br> 주요 SW 모듈을 보이고, 각각의 역할을 기술한다. <br>만약, 오픈소스 혹은 외부 모듈을 사용한다면 이또한 기술한다.* |
+| (1) 요구사항 정의 | **[기능별 상세 요구사항]** <br> - 비디오의 시각적 정보와 시퀀스 정보로부터 오디오 피처를 생성한다. <br> - 생성된 오디오 피처의 의미적 정합성을 검증한다 <br> - 또는, 피처 자체에 정합성 부여를 위해 딕셔너리를 활용한다 <br> - 의미 정합성이 부여된 오디오 피처만 비디오 피처와 fuse하여 모델 학습에 사용한다. <br> - 두 아키텍처의 성능을 비교/분석해 최적화한다. <br> **[설계 모델]** <br> - video feature extractor, audio feature extractor, audio feature generator, audio-video semantic dictionary, trainer, evaluator <br> - 위와 같이 모듈을 크게 6개로 나누어 설계했다. <br> **[데이터 셋]** <br> - 비디오: Moments in Time(MiT) <br> - 오디오: AudioSet <br> **[실험 환경]** <br> 을 넣을까 말까..~~~  |
+| (2) 전체 시스템 구성 | **[데이터 전처리]** <br> - 비디오는 먼저, 6fps의 RGB frame images로 전처리 하고, <br> - 추출된 프레임을 기반으로 Optical Flow images를 추출했다. <br> - 오디오는 AST의 feature extractor를 사용해 spectrogram으로 전처리했다.  <br> **[아키텍처 1]** <br> 이미지 첨부하기 <br> - 이미지와 오디오 피처는 transformer를 사용해 임베딩으로 처리한다. <br> - LSTM을 기반으로 오디오 피처를 생성한다. <br> - 생성한 오디오 피처를 사전 학습된 AST classifier를 사용해 multi label prediction 한다. <br> - 예측된 라벨과 Semantic Dictionary를 비교해 의미 반영 정도를 계산한다. <br> - Threshold N을 지정해 N을 넘은 유사도를 가진 피처만을 '유의미한 피처'로 필터링해 학습에 활용한다. (이 때, N은 최적화 되어야 한다.) <br> - 이 때, Semantic Dictionary는 MiT의 action 라벨과 AudioSet의 오디오 라벨 간의 의미적 관계를 BERT로 매핑한 사전이다. <br> - 필터링된 오디오 피처와 비디오 피처를 fuse하여 최종 classification에 사용한다. <br> **[아키텍처 2]** <br> 이미지 첨부하기 <br> - 이미지와 오디오 피처는 transformer를 사용해 임베딩으로 처리한다. <br> - 프레임 간 object의 이동량을 기준으로 영상 당 n개의 대표 이미지를 계산한다. <br> - n개의 대표 이미지에 대해 CLIP 모델을 사용해 캡션을 생성한다. <br> - N개의 캡션과 유사한 키 캡션을 Semantic Dictionary에서 찾는다. <br> - 키 캡션에 매핑된 오디오 라벨 임베딩을 참조한다. <br> - 이 때, Semantic Dictionary는 학습 비디오의 대표 이미지 캡션과 사전 학습된 AST classifier로 추출한 multi 오디오 라벨 간의 의미적 관계를 BERT로 매핑한 사전이다. <br> - 랜덤 노이즈를 초기 input으로 하는 GAN 구조로 오디오 피처를 생성한다. - 이 때, Dynamic Time Warfing을 이용해 비디오와 오디오 피처의 시퀀스를 정합하게 한다. <br> - 원본 비디오의 오디오 피처를 ground truth로 하여 생성 네트워크를 학습시킨다. <br> - 생성된 오디오 피처와 비디오 피처를 fuse하여 최종 classification에 사용한다. |
 | (3) 주요엔진 및 기능 설계 | *프로젝트의 주요 기능 혹은 모듈의 설계내용에 대하여 기술한다 <br> SW 구조 그림에 있는 각 Module의 상세 구현내용을 자세히 기술한다.* |
 | (4) 주요 기능의 구현 | *<주요기능리스트>에 정의된 기능 중 최소 2개 이상에 대한 상세 구현내용을 기술한다.* |
 | (5) 기타 | *기타 사항을 기술*  |
