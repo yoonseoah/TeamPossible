@@ -158,11 +158,7 @@ def load_video_frames(folder, modality='rgb', num_frames=18, target_size=(224,22
 # 3. 폴더 순회 및 여러 비디오에 대해 피처 추출
 # -------------------------------------------------------
 def process_videos(modality, root_dir, extractor, device, num_frames=18, target_size=(224,224)):
-    """
-    modality: 'rgb' 또는 'flow'
-    root_dir: 예) C:\Users\swu\Desktop\data\RGB\training 또는 OpticalFlow\training
-    extractor: 해당 모달리티의 VideoFeatureExtractor 모델
-    """
+
     results = {}  # 결과 저장 딕셔너리: key = (modality, 클래스, 비디오명)
     for class_name in os.listdir(root_dir):
         class_dir = os.path.join(root_dir, class_name)
