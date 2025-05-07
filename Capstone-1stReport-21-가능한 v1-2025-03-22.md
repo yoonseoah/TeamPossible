@@ -2,7 +2,7 @@
 | (1) 과제명 | Generating Missing Auditory Modality via Semantic Mapping for Video Action Recognition
 |:---  |---  |
 | (2) 팀 번호 / 팀 이름 | 21-가능한 |
-| (3) 팀 구성원 | **김지은** (2140010): 리더, *기본 데이터 전처리, caption-based dictionary 활용 아키텍처 설계 및 구현, transformer 활용 오디오 특징 추출* <br> **윤서아** (2168019): 팀원, *TSN 기반 feature extraction, BERT 활용 semantic mapping dictionary 설계* <br> **장은성** (2271052) : 팀원, *transformer 기반 프레임워크 중 video 전처리, feature 추출 부분 설계 및 구현*            |
+| (3) 팀 구성원 | **김지은** (2140010): 리더, 기본 데이터 전처리, caption-based dictionary 활용 아키텍처 설계 및 구현, transformer 활용 오디오 특징 추출 <br> **윤서아** (2168019): 팀원, TSN 기반 feature extraction, BERT 활용 semantic mapping dictionary 설계 <br> **장은성** (2271052) : 팀원, transformer 기반 프레임워크 중 video 전처리, feature 추출 부분 설계 및 구현            |
 | (4) 팀 지도교수 | 이형준 교수님 |
 | (5) 과제 분류 | 연구 과제 |
 | (6) 과제 키워드 | Generative AI, Video Action Recognition, Multimodal, Semantic Mapping  |
@@ -17,7 +17,8 @@
 | (2) 기존연구와의 비교 | 기존 연구는 문제 해결을 위해 비디오의 시공간적 특징을 매핑해 오디오 피처를 재구성하는데, 이는 비디오 시퀀스와 의미적 정합성을 고려하지 못한다는 한계를 가진다. 또한, 비디오-오디오 의미적 매핑 사전을 구성해 비디오와 무관한 데이터를 드롭아웃하는 기법을 적용한 기존 연구는 여전히 오디오가 결손된 상황에 대한 극복이 어렵다. 본 과제는 이들 연구와 달리, 비디오-오디오 간의 **의미적 정합성(semantic consistency)**을 고려하여 오디오 피처를 생성하고, 정합성 검증을 통해 학습에 사용함으로써 더 높은 신뢰성과 정확도를 보장한다는 점에서 차별화된다. |
 | (3) 제안 내용 | 본 프로젝트는 결손된 오디오 피처를 보완하고 행동 인식의 정확도를 향상시키기 위한 두 가지 아키텍처를 제안한다. <br> <br> **① Semantic Validation Architecture**: Transformer 기반으로 비디오에서 피처를 추출한 후, 생성된 오디오 피처에 대해 액션 라벨 예측을 수행하고, 시맨틱 사전을 이용하여 정합성을 검증한 뒤, 정합성이 확인된 피처만 학습에 사용.<br> <br> **② Caption-based Attention Mapping Architecture**: Transformer 기반으로 대표 RGB 프레임에서 자연어 캡션을 생성하고, 이를 시맨틱 사전의 키로 활용하여 비디오와 오디오 라벨 간의 의미 매핑을 attention 기반으로 정교화하여 정합성을 강화. |
 | (4) 기대효과 및 의의 | - 오디오 결손 상황에서도 높은 정확도를 유지하는 행동 인식 모델 구현 가능<br> - 의미 기반 피처 생성 및 검증을 통해 멀티모달 학습의 신뢰성 제고<br> - 행동 인식 분야를 넘어 결손 오디오 복원, 의료 영상 등 다양한 멀티모달 응용 분야로 확장 가능<br> - AGI(Artificial General Intelligence)를 위한 인간 유사 인지 능력 구현에 기여 |
-| (5) 주요 기능 리스트 | **[공통 모듈]** <br> - 비디오 데이터 전처리 모듈<br> - 비디오 특징 추출 모듈<br>- 오디오 데이터 전처리 모듈<br>- 오디오 특징 추출 모듈<br>- Audio Feature Generator<br>- Action Recognition Classifier<br><br> **[첫번째 아키텍처 모듈]** <br> - Multi Label Predictor<br> - Semantic Dictionary<br> - Feature Filter<br><br> **[두번째 아키텍처 모듈]** <br> - Representative Frame Extractor <br> - BLIP-based Caption Generator <br> - Semantic Mapping | |
+| (5) 주요 기능 리스트 | **[공통 모듈]**<br> - ~~Feature Extractor~~<br> - ~~Feature Fusion & Classification~~ <br> - *비디오 데이터 전처리 모듈*<br> - *비디오 특징 추출 모듈*<br>- *오디오 데이터 전처리 모듈*<br>- *오디오 특징 추출 모듈*<br>- *Audio Feature Generator*<br>- *Action Recognition Classifier*<br><br>**[첫번째 아키텍처 모듈]**<br> - *Multi Label Predictor*<br> - Semantic Dictionary<br> - ~~Audio Feature Generator~~<br> - ~~Multi Label Predictor~~<br> - Feature Filter<br><br>**[두번째 아키텍처 모듈]**<br> - Representative Frame Extractor ~~& CLIP-based Caption Generator~~<br> - *BLIP-based Caption Generator*<br> - ~~Semantic Dictionary~~ <br> - *Semantic Mapping*<br> - ~~Dictionary Referencing~~<br> - ~~Audio Feature Generator~~ | |
+
 
 <br>
  
