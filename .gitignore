@@ -35,3 +35,6 @@ build/
 # 환경 변수 설정
 .env
 .env.*  # 추가적인 환경 설정 파일
+
+# 대형 오디오 wave 파일 제외
+audio_waveform_*.npy
